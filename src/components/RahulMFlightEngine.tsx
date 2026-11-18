@@ -247,7 +247,7 @@ export function RahulMFlightEngine() {
       </svg>
       <div ref={planeRef} className="travelling-plane" aria-hidden="true">
         <img
-          src="/assets/glider-color.webp"
+          src="assets/glider-color.webp"
           alt=""
           width="280"
           height="186"

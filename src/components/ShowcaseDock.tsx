@@ -48,7 +48,7 @@ export function ShowcaseDock() {
         </div>
 
         <a
-          href="https://github.com/Doneeswaran"
+          href="https://github.com/Doni1905"
           target="_blank"
           rel="noreferrer"
           className="text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors hidden sm:inline-flex items-center gap-1"
@@ -90,7 +90,7 @@ export function ShowcaseDock() {
               <span></span>
             </div>
             <img
-              src="/assets/cup-color.webp"
+              src="assets/cup-color.webp"
               alt=""
               width="110"
               height="110"
@@ -105,7 +105,7 @@ export function ShowcaseDock() {
             {activeTab === 'todos-kanban' && (
               <div className="font-mono text-xs text-neutral-800 space-y-2 select-none">
                 <div className="flex items-center justify-between pb-3 border-b border-neutral-200 text-neutral-500 text-[11px]">
-                  <span>cluster: amazon-eks-production-crossview</span>
+                  <span>cluster: amazon-eks-production</span>
                   <span className="text-emerald-600 font-semibold">● SYNCED (Argo CD)</span>
                 </div>
                 <div className="py-2 text-neutral-600">
@@ -180,7 +180,7 @@ export function ShowcaseDock() {
             )}
           </div>
           <figcaption className="text-right text-[11px] text-neutral-500 mt-2">
-            Architecture and telemetry of {activeProject.title.split(' - ')[0]}
+            Illustrative demo of {activeProject.title.split(' - ')[0]} - design mockup, not live telemetry
           </figcaption>
         </figure>
       </section>

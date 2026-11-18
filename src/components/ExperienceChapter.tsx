@@ -28,7 +28,7 @@ export function ExperienceChapter() {
             )}
             {exp.company.includes('TPConnects') && (
               <p className="mt-2 text-xs font-mono text-emerald-800 bg-emerald-50 p-2.5 rounded-lg border border-emerald-200">
-                <strong>Incident Triage:</strong> Migrated Redis to in-cluster EKS and resolved pod OOMKilled events via tuned container memory limits.
+                <strong>Incident Triage:</strong> Migrated Redis to in-cluster EKS and triaged pod OOMKilled events, proposing tuned container memory limits.
               </p>
             )}
           </div>

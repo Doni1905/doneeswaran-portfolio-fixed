@@ -15,8 +15,8 @@ export function ResearchChapter() {
         <p>
           I proposed and validated a hybrid architecture fusing Spatial-Temporal Graph Neural Networks (STGNN) with Long Short-Term Memory (LSTM), accepted and published at <strong>IEEE ICIDCA 2025</strong>.
         </p>
-        <a className="text-link" href="https://github.com/Doneeswaran" target="_blank" rel="noreferrer">
-          Read research abstract <span>↗</span>
+        <a className="text-link" href="https://ieeexplore.ieee.org/search/searchresult.jsp?queryText=%22A%20Hybrid%20LSTM-STGNN%20Framework%20for%20Reliable%20Earthquake%20Magnitude%20Prediction%22" target="_blank" rel="noreferrer">
+          Search this title on IEEE Xplore <span>↗</span>
         </a>
       </div>
 

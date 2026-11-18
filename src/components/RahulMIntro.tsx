@@ -51,7 +51,7 @@ export function RahulMIntro() {
         {/* The home airplane where flight begins */}
         <div className="plane-home" aria-hidden="true">
           <img
-            src="/assets/glider-color.webp"
+            src="assets/glider-color.webp"
             width="280"
             height="186"
             alt=""

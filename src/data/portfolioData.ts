@@ -47,7 +47,7 @@ export const PERSONAL_INFO = {
   location: "Chennai, Tamil Nadu, India",
   email: "Doneeswaran05@gmail.com",
   phone: "+91-9360083400",
-  github: "https://github.com/Doneeswaran",
+  github: "https://github.com/Doni1905",
   todosRepo: "https://github.com/Doni1905/TODOS",
   status: "Seeking Cloud Engineering, DevOps & Backend Engineering roles (2027 Batch)",
   about: "I bridge the gap between production Cloud Infrastructure (Kubernetes, GitOps, IaC) and AI Systems. Having shipped enterprise dashboards to Amazon EKS during my internship at TPConnects Dubai and published deep learning research at IEEE ICIDCA 2025, I focus on deterministic deployments, container observability, and high-performance edge architectures.",

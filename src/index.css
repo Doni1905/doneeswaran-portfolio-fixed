@@ -44,6 +44,11 @@ em {
     width: calc(100% - 36px);
   }
 }
+.plane-home img,
+.travelling-plane img {
+  width: 100%;
+  height: auto;
+}
 
 /* Header */
 .header {
@@ -725,4 +730,31 @@ h2 em {
 .socials a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+/* Mobile layout fixes (kept last so they win over base rules) */
+@media (max-width: 650px) {
+  .header {
+    height: auto;
+    flex-wrap: wrap;
+    row-gap: 12px;
+    padding: 16px 0;
+  }
+  .header nav {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px 18px;
+    font-size: 12px;
+  }
+  .plane-home {
+    width: 130px;
+    top: -10px;
+    right: 0;
+  }
+  .travelling-plane,
+  .plane-home,
+  .plane-trail {
+    display: none !important;
+  }
 }

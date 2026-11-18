@@ -19,7 +19,7 @@ export function InspectionChapter() {
         <div className="question">Self-healing clusters?</div>
         <div className="discovery">Argo CD & Crossplane.</div>
         <img
-          src="/assets/magnifier-color.webp"
+          src="assets/magnifier-color.webp"
           alt=""
           className="magnifier-object select-none pointer-events-none"
         />

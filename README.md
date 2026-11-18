@@ -1,52 +1,27 @@
-# Doneeswaran J — Portfolio
+# doneeswaran-portfolio-fixed
 
-> Cloud, DevOps & AI Systems Engineer • B.Tech AI/ML • IEEE Published Researcher
+Corrected copy of [doneeswaran-portfolio](https://github.com/Doni1905/doneeswaran-portfolio) (original untouched).
 
-Modern, high-performance personal portfolio built with **React 19**, **Vite**, **TypeScript**, and **Tailwind CSS**. Featuring interactive flight-line aesthetics, editorial typography, and production-grade engineering showcases.
+Fixes over the original `df178ef`:
+- Mobile: navigation no longer runs offscreen; plane animation and trail are hidden on narrow screens (desktop keeps the full effect); asset paths fixed for subpath hosting.
+- Links: GitHub destinations now point to [Doni1905](https://github.com/Doni1905); the research abstract link opens an IEEE Xplore search for the paper title (replace with the DOI link when available).
+- Honesty: dock panels are labeled as illustrative demos, not live telemetry; the internship OOMKilled incident is described as triaged with a proposed fix, matching the source notes.
+- Dependencies: production audit is clean (`npm audit --omit=dev` = 0). The 4 dev-chain audit entries trace to picomatch advisory GHSA-fc5q-39xc-vjpf, which GitHub has since marked withdrawn.
 
-## 🚀 Tech Stack
-
-- **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
-- **Motion & UI:** [Framer Motion](https://www.framer.com/motion/), [Lucide React](https://lucide.dev/)
-- **Typography:** DM Sans, Instrument Serif, JetBrains Mono
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- Node.js (v18+ recommended)
-- npm, pnpm, or yarn
-
-### Installation
+## Run locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/Doni1905/doneeswaran-portfolio.git
-cd doneeswaran-portfolio
-
-# Install dependencies
 npm install
-
-# Start local dev server
-npm run dev
+npm run build
+npm run preview
 ```
 
-### Build for Production
+## Pull this repo
 
 ```bash
-npm run build
+git clone https://github.com/Doni1905/doneeswaran-portfolio-fixed.git
+cd doneeswaran-portfolio-fixed
+npm install && npm run build
 ```
 
-The production assets will be generated in `dist/`.
-
-## 📌 Featured Highlights
-
-- **Cloud & DevOps Architecture:** Production AWS EKS, Argo CD GitOps, Crossplane IaC, and Kubernetes orchestration.
-- **AI Systems & Agents:** Multi-agent autonomous frameworks, document chatbots, and agentic workflows.
-- **Published Research:** IEEE publication on real-time computer vision and multimodal intelligence.
-
----
-
-Crafted by [Doneeswaran J](https://github.com/Doni1905).
+Live preview: https://doni1905.github.io/doneeswaran-portfolio-fixed/
