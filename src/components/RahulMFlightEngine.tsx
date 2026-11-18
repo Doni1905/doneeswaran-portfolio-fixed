@@ -105,7 +105,7 @@ export function RahulMFlightEngine() {
       if (mobile) {
         // Mobile: the plane flies down a reserved right-hand gutter (see index.css),
         // weaving gently so it never crosses text.
-        const lane = W - 29;
+        const lane = W - 27;
         const end = route[route.length - 1].at;
         const stops = [0, 0.14, 0.3, 0.46, 0.62, 0.78, 1];
         const ys = [0.2, 0.34, 0.26, 0.5, 0.36, 0.58, 0.46];
