@@ -1,26 +1,52 @@
 # Doneeswaran J — Portfolio
 
-A responsive, editorial-style personal portfolio built with semantic HTML, CSS and vanilla JavaScript.
+> Cloud, DevOps & AI Systems Engineer • B.Tech AI/ML • IEEE Published Researcher
 
-## Design
-- Warm, paper-like palette and oversized editorial typography
-- Project-led storytelling with custom CSS artwork for each featured repository
-- Subtle scroll progress and responsive navigation
-- No framework or build step required
+Modern, high-performance personal portfolio built with **React 19**, **Vite**, **TypeScript**, and **Tailwind CSS**. Featuring interactive flight-line aesthetics, editorial typography, and production-grade engineering showcases.
 
-## Run locally
+## 🚀 Tech Stack
+
+- **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Motion & UI:** [Framer Motion](https://www.framer.com/motion/), [Lucide React](https://lucide.dev/)
+- **Typography:** DM Sans, Instrument Serif, JetBrains Mono
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- npm, pnpm, or yarn
+
+### Installation
+
 ```bash
-python3 -m http.server 8000
+# Clone the repository
+git clone https://github.com/Doni1905/doneeswaran-portfolio.git
+cd doneeswaran-portfolio
+
+# Install dependencies
+npm install
+
+# Start local dev server
+npm run dev
 ```
-Open http://localhost:8000.
 
-## Deploy
-GitHub Pages → Settings → Pages → Deploy from a branch → `main` → `/(root)`.
+### Build for Production
 
-## Featured repositories
-- [AgentTrade](https://github.com/Doni1905/AGENTTRADE)
-- [Agentic Data Analyst](https://github.com/Doni1905/agentic-data-analyst)
-- [Offline Document Chatbot](https://github.com/Doni1905/RAP-Document_Chatbot)
-- [TODOS](https://github.com/Doni1905/TODOS)
+```bash
+npm run build
+```
 
-Update the content in `index.html` as projects, dates and experience evolve.
+The production assets will be generated in `dist/`.
+
+## 📌 Featured Highlights
+
+- **Cloud & DevOps Architecture:** Production AWS EKS, Argo CD GitOps, Crossplane IaC, and Kubernetes orchestration.
+- **AI Systems & Agents:** Multi-agent autonomous frameworks, document chatbots, and agentic workflows.
+- **Published Research:** IEEE publication on real-time computer vision and multimodal intelligence.
+
+---
+
+Crafted by [Doneeswaran J](https://github.com/Doni1905).
