@@ -36,6 +36,9 @@ export function RahulMFlightEngine() {
     let arrivalReady = !document.fonts || document.fonts.status === 'loaded';
     let arrivalDone = Boolean(location.hash && location.hash !== '#top');
     let paused = preference.matches;
+    let travelDirection = 1;
+    let previousScroll: number | null = null;
+    let trailHistory: { x: number; y: number }[] = [];
 
     const clamp = (n: number, a = 0, b = 1) => Math.max(a, Math.min(b, n));
     const mix = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -132,7 +135,14 @@ export function RahulMFlightEngine() {
       // Exponential damping
       currentY = currentY === null ? target : mix(currentY, target, 1 - Math.exp(-dt / 85));
 
+      if (previousScroll !== null && Math.abs(currentY - previousScroll) > 0.02) {
+        const direction = currentY > previousScroll ? 1 : -1;
+        if (direction !== travelDirection) trailHistory = [];
+        travelDirection = direction;
+      }
+      previousScroll = currentY;
       let p = sampleFlightPath(segments, currentY);
+      if (travelDirection < 0) p.angle += 180;
       const mobile = window.innerWidth <= 650;
 
       if (!arrivalDone) {
@@ -168,18 +178,22 @@ export function RahulMFlightEngine() {
       // Transform fixed plane in screen-space
       plane.style.transform = `translate3d(${p.x - planeWidth / 2}px, ${p.y - planeHeight / 2}px, 0) rotate(${p.angle}deg) scale(${scale})`;
 
-      // Contrail vapor trail
-      const marks: string[] = [];
+      // Actual position history keeps the contrail behind the plane in either
+      // scroll direction. Reset on reversal instead of drawing ahead of its nose.
+      const lastMark = trailHistory[trailHistory.length - 1];
+      if (!lastMark || Math.hypot(p.x - lastMark.x, p.y - lastMark.y) > 0.5) {
+        trailHistory.push({ x: p.x, y: p.y });
+      }
       let distance = 0;
-      let previous = p;
-      for (let yy = currentY - 3; yy >= 0 && yy > currentY - 360 && distance < 135; yy -= 3) {
-        const q = fitMobile(sampleFlightPath(segments, yy));
+      let previous: { x: number; y: number } = p;
+      const marks: string[] = [];
+      for (let i = trailHistory.length - 1; i >= 0 && distance < 135; i--) {
+        const q = trailHistory[i];
         distance += Math.hypot(q.x - previous.x, q.y - previous.y);
         previous = q;
-        if (distance > planeWidth * scale * 0.34) {
-          marks.push(`${q.x.toFixed(1)},${q.y.toFixed(1)}`);
-        }
+        if (distance > planeWidth * scale * 0.34) marks.push(`${q.x.toFixed(1)},${q.y.toFixed(1)}`);
       }
+      if (trailHistory.length > 300) trailHistory = trailHistory.slice(-300);
       trace.setAttribute('d', marks.length ? 'M' + marks.join(' L') : '');
 
       // Physical objects linked to scroll focus
