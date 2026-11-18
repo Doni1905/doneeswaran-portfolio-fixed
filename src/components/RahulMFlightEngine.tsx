@@ -34,7 +34,7 @@ export function RahulMFlightEngine() {
     let lastTime = 0;
     let arrivalStart: number | null = null;
     let arrivalReady = !document.fonts || document.fonts.status === 'loaded';
-    let arrivalDone = Boolean(location.hash && location.hash !== '#top');
+    let arrivalDone = Boolean(location.hash && location.hash !== '#top') || window.innerWidth <= 650;
     let paused = preference.matches;
 
     const clamp = (n: number, a = 0, b = 1) => Math.max(a, Math.min(b, n));
@@ -66,7 +66,7 @@ export function RahulMFlightEngine() {
       const archive = box(document.querySelector('#archive'));
       const contact = box(document.querySelector('#contact'));
 
-      planeWidth = mobile ? 140 : 280;
+      planeWidth = mobile ? 120 : 280;
       planeHeight = (planeWidth * 2) / 3;
 
       const edge = mobile ? W - 42 : W - 110;
@@ -95,19 +95,27 @@ export function RahulMFlightEngine() {
         at: i === 0 ? 0 : Math.max(0, p.y - p.view * H),
       }));
 
-      if (mobile) {
-        route[1].at = Math.max(150, (inspection.top || 400) - H * 0.6);
-        route[2] = { x: W - 48, y: H * 0.18, at: (work.top || 1200) + 12 };
-        route[3] = { x: W - 46, y: H * 0.30, at: (experience.top || 2200) - H * 0.32 };
-        route[4] = { x: 48, y: H * 0.52, at: (research.top || 3000) };
-      }
-
       route[route.length - 1].y = clamp((contact.top || 4800) + (contact.height || 400) * 0.64 - maxScroll, H * 0.2, H * 0.8);
       route[route.length - 1].at = maxScroll;
 
       route.forEach((p, i) => {
         if (i) p.at = Math.max(p.at, route[i - 1].at + 120);
       });
+
+      if (mobile) {
+        // Mobile: the plane flies down a reserved right-hand gutter (see index.css),
+        // weaving gently so it never crosses text.
+        const lane = W - 29;
+        const end = route[route.length - 1].at;
+        const stops = [0, 0.14, 0.3, 0.46, 0.62, 0.78, 1];
+        const ys = [0.2, 0.34, 0.26, 0.5, 0.36, 0.58, 0.46];
+        const xs = [lane - 3, lane + 2, lane - 4, lane + 2, lane - 4, lane + 2, lane - 2];
+        route = stops.map((t, i) => ({ x: xs[i], y: ys[i] * H, at: t * end }));
+        segments = makeFlightPath(route, W, H);
+        glideEnd = 0;
+        requestDraw();
+        return;
+      }
 
       // Launch glide forward on a shallow diagonal
       glideEnd = Math.min(mobile ? 190 : 260, route[1].at * 0.55);
@@ -160,7 +168,7 @@ export function RahulMFlightEngine() {
         plane.style.opacity = '1';
       }
 
-      const scale = mix(1, mobile ? 0.48 : 0.62, ease(clamp((currentY - glideEnd) / 420)));
+      const scale = mobile ? 0.34 : mix(1, 0.62, ease(clamp((currentY - glideEnd) / 420)));
 
       // Transform fixed plane in screen-space
       plane.style.transform = `translate3d(${p.x - planeWidth / 2}px, ${p.y - planeHeight / 2}px, 0) rotate(${p.angle}deg) scale(${scale})`;

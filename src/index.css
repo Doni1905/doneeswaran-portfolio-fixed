@@ -752,9 +752,27 @@ h2 em {
     top: -10px;
     right: 0;
   }
-  .travelling-plane,
-  .plane-home,
-  .plane-trail {
+  /* Reserve a right-hand gutter so the small plane never crosses text */
+  .wrap {
+    width: calc(100% - 74px);
+    margin-left: 18px;
+    margin-right: 56px;
+  }
+  .footer {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .socials {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .plane-home {
     display: none !important;
+  }
+  .travelling-plane {
+    width: 120px;
+  }
+  .plane-trail path {
+    stroke-width: 1.2px;
   }
 }
