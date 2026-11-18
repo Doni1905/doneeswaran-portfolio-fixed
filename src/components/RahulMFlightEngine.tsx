@@ -34,7 +34,7 @@ export function RahulMFlightEngine() {
     let lastTime = 0;
     let arrivalStart: number | null = null;
     let arrivalReady = !document.fonts || document.fonts.status === 'loaded';
-    let arrivalDone = Boolean(location.hash && location.hash !== '#top') || window.innerWidth <= 650;
+    let arrivalDone = Boolean(location.hash && location.hash !== '#top');
     let paused = preference.matches;
 
     const clamp = (n: number, a = 0, b = 1) => Math.max(a, Math.min(b, n));
@@ -66,11 +66,11 @@ export function RahulMFlightEngine() {
       const archive = box(document.querySelector('#archive'));
       const contact = box(document.querySelector('#contact'));
 
-      planeWidth = mobile ? 120 : 280;
+      planeWidth = mobile ? 180 : 280;
       planeHeight = (planeWidth * 2) / 3;
 
-      const edge = mobile ? W - 42 : W - 110;
-      const left = mobile ? 42 : 110;
+      const edge = mobile ? W - 76 : W - 110;
+      const left = mobile ? 76 : 110;
       startY = h.top + h.height / 2 || H * 0.28;
 
       // Waypoints mapped with screen-space viewport heights (p.view * H)
@@ -81,8 +81,8 @@ export function RahulMFlightEngine() {
         { x: left, y: (work.top || 1400) + 60, view: mobile ? 0.80 : 0.72 },
         { x: edge, y: (experience.top || 2400) + 60, view: 0.38 },
         { x: left, y: (research.top || 3200) + 60, view: 0.65 },
-        { x: mobile ? 50 : 145, y: (archive.top || 4000) + 40, view: 0.40 },
-        { x: W * 0.82, y: (contact.top || 4800) + (contact.height || 400) * 0.64, view: 0.42 },
+        { x: mobile ? 80 : 145, y: (archive.top || 4000) + 40, view: 0.40 },
+        { x: mobile ? W - 80 : W * 0.82, y: (contact.top || 4800) + (contact.height || 400) * 0.64, view: 0.42 },
       ];
 
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - H);
@@ -101,21 +101,6 @@ export function RahulMFlightEngine() {
       route.forEach((p, i) => {
         if (i) p.at = Math.max(p.at, route[i - 1].at + 120);
       });
-
-      if (mobile) {
-        // Mobile: the plane flies down a reserved right-hand gutter (see index.css),
-        // weaving gently so it never crosses text.
-        const lane = W - 27;
-        const end = route[route.length - 1].at;
-        const stops = [0, 0.14, 0.3, 0.46, 0.62, 0.78, 1];
-        const ys = [0.2, 0.34, 0.26, 0.5, 0.36, 0.58, 0.46];
-        const xs = [lane - 3, lane + 2, lane - 4, lane + 2, lane - 4, lane + 2, lane - 2];
-        route = stops.map((t, i) => ({ x: xs[i], y: ys[i] * H, at: t * end }));
-        segments = makeFlightPath(route, W, H);
-        glideEnd = 0;
-        requestDraw();
-        return;
-      }
 
       // Launch glide forward on a shallow diagonal
       glideEnd = Math.min(mobile ? 190 : 260, route[1].at * 0.55);
@@ -168,7 +153,17 @@ export function RahulMFlightEngine() {
         plane.style.opacity = '1';
       }
 
-      const scale = mobile ? 0.34 : mix(1, 0.62, ease(clamp((currentY - glideEnd) / 420)));
+      const scale = mix(1, mobile ? 0.68 : 0.62, ease(clamp((currentY - glideEnd) / 420)));
+
+      // Keep the shared curve inside a narrow viewport, including rotated wings.
+      const fitMobile = <T extends { x: number; y: number; angle: number }>(point: T): T => {
+        if (!mobile) return point;
+        const angle = point.angle * Math.PI / 180;
+        const halfW = scale * (Math.abs(Math.cos(angle)) * planeWidth + Math.abs(Math.sin(angle)) * planeHeight) / 2 + 4;
+        const halfH = scale * (Math.abs(Math.sin(angle)) * planeWidth + Math.abs(Math.cos(angle)) * planeHeight) / 2 + 4;
+        return { ...point, x: clamp(point.x, halfW, document.documentElement.clientWidth - halfW), y: clamp(point.y, halfH, innerHeight - halfH) };
+      };
+      p = fitMobile(p);
 
       // Transform fixed plane in screen-space
       plane.style.transform = `translate3d(${p.x - planeWidth / 2}px, ${p.y - planeHeight / 2}px, 0) rotate(${p.angle}deg) scale(${scale})`;
@@ -178,7 +173,7 @@ export function RahulMFlightEngine() {
       let distance = 0;
       let previous = p;
       for (let yy = currentY - 3; yy >= 0 && yy > currentY - 360 && distance < 135; yy -= 3) {
-        const q = sampleFlightPath(segments, yy);
+        const q = fitMobile(sampleFlightPath(segments, yy));
         distance += Math.hypot(q.x - previous.x, q.y - previous.y);
         previous = q;
         if (distance > planeWidth * scale * 0.34) {
@@ -249,7 +244,7 @@ export function RahulMFlightEngine() {
   }, []);
 
   return (
-    <>
+    <div className="flight-layer" aria-hidden="true">
       <svg className="plane-trail" aria-hidden="true">
         <path ref={traceRef} />
       </svg>
@@ -262,6 +257,6 @@ export function RahulMFlightEngine() {
           className="select-none pointer-events-none"
         />
       </div>
-    </>
+    </div>
   );
 }

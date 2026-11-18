@@ -752,12 +752,6 @@ h2 em {
     top: -10px;
     right: 0;
   }
-  /* Reserve a right-hand gutter so the small plane never crosses text */
-  .wrap {
-    width: calc(100% - 78px);
-    margin-left: 18px;
-    margin-right: 60px;
-  }
   .footer {
     flex-wrap: wrap;
     gap: 16px;
@@ -779,13 +773,17 @@ h2 em {
     max-width: 100%;
     gap: 8px;
   }
-  .plane-home {
-    display: none !important;
+  .opening { padding-top: 110px; margin-top: 26px; }
+  .plane-home { display: block; width: 180px; top: -8px; right: 12px; }
+  .travelling-plane { width: 180px; }
+  .flight-layer { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
+  main :is(h1, h2, h3, p, .eyebrow, .intro-proof, .text-link, .contact-email, .contact-meta, summary, .footer, .app-dock, .hello, .scroll-invite) {
+    position: relative;
+    z-index: 11;
+    text-shadow: 0 0 3px white, 0 0 3px white, 0 0 3px white, 0 0 3px white;
   }
-  .travelling-plane {
-    width: 120px;
-  }
-  .plane-trail path {
-    stroke-width: 1.2px;
-  }
+  .header { position: relative; z-index: 101; background: white; }
+
 }
+
+.flight-layer { pointer-events: none; }
